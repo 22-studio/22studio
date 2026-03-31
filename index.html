@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>22 Studio</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+    text-align: center;
+}
+
+header {
+    background: #1f1f1f;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+button {
+    background: #ff0055;
+    border: none;
+    padding: 12px 22px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background: #ff3377;
+    transform: translateY(-2px);
+    box-shadow: 0 0 16px rgba(255, 0, 85, 0.35);
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background: #1f1f1f;
+}
+
+/* ЗАСТАВКА */
+#splash {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#present-text {
+    opacity: 0;
+    animation: textFade 2s forwards;
+    letter-spacing: 3px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#logo {
+    width: 200px;
+    max-width: 70vw;
+    opacity: 0;
+    animation: logoFade 3s forwards;
+}
+
+@keyframes textFade {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes logoFade {
+    0% { opacity: 0; transform: scale(0.8); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* ИСТОРИЯ */
+.story-section {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 30px;
+}
+
+.story-box {
+    background: linear-gradient(180deg, #1b1b1b 0%, #151515 100%);
+    padding: 24px 30px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 1180px;
+    min-height: 320px;
+    box-shadow:
+        0 0 12px rgba(255,255,255,0.06),
+        0 0 30px rgba(0,0,0,0.35);
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.story-box h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: #ff2a2a;
+    text-shadow: 0 0 12px rgba(255, 42, 42, 0.45);
+    text-align: center;
+}
+
+.story-box p {
+    margin: 0 0 12px 0;
+    font-size: 17px;
+    line-height: 1.55;
+    color: #f2f2f2;
+}
+
+.story-box p:last-child {
+    margin-bottom: 0;
+}
+
+.story-box .story-accent {
+    color: #ff4d7a;
+    font-weight: bold;
+}
+
+/* БЛОК ПОД ИСТОРИЕЙ */
+.content-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: stretch;
+    margin: 0 0 50px;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    height: 100%;
+}
+
+/* ОБЩИЕ БЛОКИ */
+.patch-box,
+.workers-box,
+.old-project-box {
+    background: #1c1c1c;
+    padding: 24px;
+    border-radius: 18px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.patch-box h2,
+.workers-box h2,
+.old-project-box h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: #ff2a2a;
+    text-shadow: 0 0 12px rgba(255, 42, 42, 0.45);
+    text-align: center;
+}
+
+.workers-box h2 {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255,255,255,0.15);
+}
+
+.old-project-box h2 {
+    color: #ffd54a;
+    text-shadow: 0 0 12px rgba(255, 213, 74, 0.25);
+}
+
+/* NEW PATCH */
+.patch-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.patch-box h2 {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 8px;
+}
+
+.patch-images {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px;
+    align-items: stretch;
+}
+
+.patch-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    background: #000;
+    box-shadow: 0 0 16px rgba(0,0,0,0.45);
+    transition: transform 0.3s, box-shadow 0.3s;
+    object-fit: cover;
+}
+
+/* WORKERS */
+.workers-images {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.workers-images img {
+    width: 100%;
+    max-width: 160px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 14px;
+    background: #000;
+    box-shadow: 0 0 16px rgba(0,0,0,0.45);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* OLD PROJECT */
+.old-project-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.old-project-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.old-project-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.old-project-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    background: #000;
+    box-shadow: 0 0 16px rgba(0,0,0,0.45);
+    transition: transform 0.3s, box-shadow 0.3s;
+    object-fit: cover;
+}
+
+.patch-images img:hover,
+.workers-images img:hover,
+.old-project-image img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 22px rgba(255, 42, 42, 0.18);
+}
+
+.old-project-button {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    margin-top: auto;
+}
+
+.old-project-button button {
+    width: 100%;
+    background: #ffd54a;
+    color: #111;
+}
+
+.old-project-button button:hover {
+    background: #ffe27d;
+    box-shadow: 0 0 16px rgba(255, 213, 74, 0.45);
+}
+
+.release-link-button {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 18px;
+}
+
+.release-link-button button {
+    min-width: 260px;
+    background: #ff2a2a;
+    color: white;
+}
+
+.release-link-button button:hover {
+    background: #ff4a4a;
+    box-shadow: 0 0 16px rgba(255, 42, 42, 0.45);
+}
+
+.worker-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.worker-card p {
+    margin: 0;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+}
+
+/* НИЖНИЙ БЛОК: функции до/после */
+.compare-section {
+    margin-top: 20px;
+}
+
+/* СЕТКА 2x2 */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 40px 0;
+}
+
+/* BEFORE / AFTER */
+.compare-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    background: #111;
+    box-shadow: 0 0 20px rgba(0,0,0,0.35);
+    aspect-ratio: 16 / 9;
+}
+
+.compare-container * {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.compare-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    object-fit: cover;
+}
+
+.compare-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+}
+
+.compare-overlay .compare-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.compare-divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 90px;
+    height: 100%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.10) 35%,
+        rgba(255,255,255,0.60) 50%,
+        rgba(255,255,255,0.10) 65%,
+        rgba(255,255,255,0) 100%
+    );
+    mix-blend-mode: screen;
+}
+
+.compare-slider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 0 10px rgba(255,255,255,0.7);
+    cursor: ew-resize;
+    z-index: 5;
+}
+
+.compare-slider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255,255,255,0.8);
+}
+
+/* подписи */
+.mode-badge {
+    position: absolute;
+    top: 16px;
+    z-index: 6;
+    padding: 10px 14px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.1;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+}
+
+.mode-off {
+    left: 16px;
+    background: linear-gradient(135deg, #444 0%, #666 100%);
+}
+
+.mode-on {
+    right: 16px;
+    background: linear-gradient(135deg, #53d400 0%, #3cab00 100%);
+}
+
+/* ВИДЕО */
+.video-title {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: #ff2a2a;
+    text-shadow: 0 0 12px rgba(255, 42, 42, 0.45);
+}
+
+.video-container {
+    margin: 0 auto 40px auto;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    background: black;
+}
+
+/* КИБЕРПАНК НАДПИСЬ */
+.release-section {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.cyber-release {
+    position: relative;
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #00f7ff;
+    background: linear-gradient(135deg, rgba(255,0,153,0.12), rgba(0,247,255,0.12));
+    border: 2px solid #00f7ff;
+    border-radius: 14px;
+    box-shadow:
+        0 0 8px rgba(0,247,255,0.8),
+        0 0 18px rgba(0,247,255,0.6),
+        0 0 28px rgba(255,0,153,0.45),
+        inset 0 0 12px rgba(0,247,255,0.12);
+    text-shadow:
+        2px 0 #ff0099,
+        -2px 0 #00f7ff,
+        0 0 10px rgba(0,247,255,0.95),
+        0 0 20px rgba(255,0,153,0.7);
+    animation: cyberPulse 1.8s infinite alternate;
+    overflow: hidden;
+}
+
+.cyber-release::before,
+.cyber-release::after {
+    content: "ДО РЕЛИЗА 1 ДЕНЬ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 14px 28px;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.cyber-release::before {
+    color: #ff00a8;
+    transform: translate(2px, 0);
+    clip-path: inset(0 0 55% 0);
+    animation: glitchTop 1.2s infinite linear alternate-reverse;
+    opacity: 0.8;
+}
+
+.cyber-release::after {
+    color: #00e5ff;
+    transform: translate(-2px, 0);
+    clip-path: inset(55% 0 0 0);
+    animation: glitchBottom 1.1s infinite linear alternate-reverse;
+    opacity: 0.8;
+}
+
+@keyframes cyberPulse {
+    0% {
+        transform: scale(1);
+        box-shadow:
+            0 0 8px rgba(0,247,255,0.8),
+            0 0 18px rgba(0,247,255,0.6),
+            0 0 28px rgba(255,0,153,0.45),
+            inset 0 0 12px rgba(0,247,255,0.12);
+    }
+    100% {
+        transform: scale(1.03);
+        box-shadow:
+            0 0 12px rgba(0,247,255,1),
+            0 0 28px rgba(0,247,255,0.85),
+            0 0 40px rgba(255,0,153,0.65),
+            inset 0 0 18px rgba(0,247,255,0.18);
+    }
+}
+
+@keyframes glitchTop {
+    0% { transform: translate(2px, -1px); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(3px, -2px); }
+    60% { transform: translate(-3px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(-1px, 2px); }
+}
+
+@keyframes glitchBottom {
+    0% { transform: translate(-2px, 1px); }
+    20% { transform: translate(2px, -1px); }
+    40% { transform: translate(-3px, 2px); }
+    60% { transform: translate(3px, -1px); }
+    80% { transform: translate(-1px, 1px); }
+    100% { transform: translate(1px, -2px); }
+}
+
+/* адаптив */
+@media (max-width: 1100px) {
+    .content-row {
+        grid-template-columns: 1fr;
+    }
+
+    .patch-images {
+        grid-template-columns: 1fr;
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        font-size: 22px;
+        flex-direction: column;
+    }
+
+    .video-title {
+        font-size: 26px;
+    }
+
+    .workers-images {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .workers-images img {
+        max-width: 180px;
+    }
+
+    .story-box {
+        min-height: auto;
+        padding: 22px 20px;
+    }
+
+    .story-box h2 {
+        font-size: 28px;
+    }
+
+    .story-box p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .cyber-release {
+        font-size: 24px;
+        letter-spacing: 2px;
+        padding: 12px 18px;
+    }
+
+    .cyber-release::before,
+    .cyber-release::after {
+        padding: 12px 18px;
+    }
+
+    .release-link-button button {
+        min-width: 220px;
+        width: 100%;
+        max-width: 320px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="splash">
+    <div>
+        <p id="present-text">22 Studio presents</p>
+        <img src="logo.png" id="logo" alt="logo">
+        <audio id="intro-sound" src="sound.mp3"></audio>
+    </div>
+</div>
+
+<header>
+    <img src="logo.png" width="100" alt="logo">
+    22 STUDIO 🎮
+</header>
+
+<div class="container">
+    <h1>Добро пожаловать в 22 Studio</h1>
+    <p>Мы делаем лучшие (почти) игры в мире 😎</p>
+
+    <div class="story-section">
+        <div class="story-box">
+            <h2>История 22 Studio</h2>
+
+            <p>В <span class="story-accent">1856 году</span> два брата решили основать бар на 22-й улице своего городка, который так и назвали — <span class="story-accent">«Бар 22»</span>. Но бар просуществовал недолго: всего через три года его сожгли завистники, оставив братьев с пустыми карманами. Поэтому они решили посвятить свою жизнь поискам тех, кто лишил их бара.</p>
+
+            <p>Когда братьев не стало, их дети и внуки продолжили поиски. Спустя <span class="story-accent">114 лет</span> один из потомков по имени <span class="story-accent">Гриша</span> решил положить конец этим поискам и отвернулся от семьи, чтобы создать свою компанию, которая будет делать занавески для душа. Всего за 6 лет Гриша смог заработать столько денег, что их хватило бы ему, его детям и внукам до конца жизни.</p>
+
+            <p>Но одной ночью, <span class="story-accent">4 апреля 2012 года</span>, дом Гриши подожгли завистники — так же, как когда-то давно сожгли бар его прапрапрапрапрадедов. Однако вместо того, чтобы искать виновных, Гриша решил продолжить жить нормальной жизнью. Но судьба сыграла не в его пользу: он смертельно заболел, и всё его наследство перешло двум его сыновьям.</p>
+
+            <p>Они решили на эти деньги основать студию, которая будет делать игры, и назвать её в честь сгоревшего бара <span class="story-accent">«22 Studio»</span>. Так и появилось название — <span class="story-accent">«22 Studio»</span>.</p>
+        </div>
+    </div>
+
+    <div class="content-row">
+        <div class="left-column">
+            <div class="patch-box">
+                <h2>NEW PATCH</h2>
+                <div class="patch-images">
+                    <img src="photo_2026-03-20_17-29-03.jpg" alt="Patch 2.00 сюжетная линия">
+                    <img src="photo_2026-03-20_17-29-04.jpg" alt="Patch 2.00 новый контент">
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="old-project-box">
+                <div class="old-project-content">
+                    <h2>OLD PROJECT</h2>
+                    <div class="old-project-image">
+                        <img src="photo_2026-03-20_20-07-55.jpg" alt="Old Project">
+                    </div>
+                    <a class="old-project-button" href="https://www.roblox.com/games/134269520852600/Snaddes-Surprise" target="_blank" rel="noopener noreferrer">
+                        <button type="button">Открыть OLD PROJECT</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="compare-section">
+        <div class="grid">
+
+            <div class="compare-container">
+                <img src="1.jpg" class="compare-img" alt="">
+                <div class="compare-overlay">
+                    <img src="2.jpg" class="compare-img" alt="">
+                </div>
+                <div class="mode-badge mode-off">dlss5<br>OFF</div>
+                <div class="mode-badge mode-on">dlss5<br>ON</div>
+                <div class="compare-divider"></div>
+                <div class="compare-slider"></div>
+            </div>
+
+            <div class="compare-container">
+                <img src="5.jpg" class="compare-img" alt="">
+                <div class="compare-overlay">
+                    <img src="6.jpg" class="compare-img" alt="">
+                </div>
+                <div class="mode-badge mode-off">dlss5<br>OFF</div>
+                <div class="mode-badge mode-on">dlss5<br>ON</div>
+                <div class="compare-divider"></div>
+                <div class="compare-slider"></div>
+            </div>
+
+            <div class="compare-container">
+                <img src="3.jpg" class="compare-img" alt="">
+                <div class="compare-overlay">
+                    <img src="4.jpg" class="compare-img" alt="">
+                </div>
+                <div class="mode-badge mode-off">RTX<br>OFF</div>
+                <div class="mode-badge mode-on">RTX<br>ON</div>
+                <div class="compare-divider"></div>
+                <div class="compare-slider"></div>
+            </div>
+
+            <div class="compare-container">
+                <img src="7.jpg" class="compare-img" alt="">
+                <div class="compare-overlay">
+                    <img src="8.jpg" class="compare-img" alt="">
+                </div>
+                <div class="mode-badge mode-off">RTX<br>OFF</div>
+                <div class="mode-badge mode-on">RTX<br>ON</div>
+                <div class="compare-divider"></div>
+                <div class="compare-slider"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <h2 class="video-title">Трейлер</h2>
+
+    <div class="video-container">
+        <video controls>
+            <source src="trailer.mp4" type="video/mp4">
+            Твой браузер не поддерживает видео.
+        </video>
+    </div>
+
+    <div class="release-section">
+        <div class="cyber-release">ДО РЕЛИЗА 1 ДЕНЬ</div>
+        <br>
+        <a class="release-link-button" href="https://youtu.be/lB1CGtpSnMk?si=fOJfVNnrhbkDiULN&t=237" target="_blank" rel="noopener noreferrer">
+            <button type="button">Играть сейчас</button>
+        </a>
+    </div>
+
+    <div class="workers-box">
+        <h2>Роботники</h2>
+        <div class="workers-images">
+            <div class="worker-card">
+                <img src="team1.jpg" alt="Коля">
+                <p>Коля</p>
+            </div>
+
+            <div class="worker-card">
+                <img src="team2.jpg" alt="Рома">
+                <p>Рома</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2026 22 Studio 😎
+</footer>
+
+<script>
+document.addEventListener("dragstart", e => e.preventDefault());
+
+window.onload = () => {
+    const sound = document.getElementById("intro-sound");
+    const splash = document.getElementById("splash");
+
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
+
+    setTimeout(() => {
+        sound.pause();
+        sound.currentTime = 0;
+        splash.style.display = "none";
+    }, 4000);
+};
+
+document.querySelectorAll(".compare-container").forEach(container => {
+    const slider = container.querySelector(".compare-slider");
+    const overlay = container.querySelector(".compare-overlay");
+    const divider = container.querySelector(".compare-divider");
+
+    let dragging = false;
+
+    function updateSlider(clientX) {
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+
+        if (x < 0) x = 0;
+        if (x > rect.width) x = rect.width;
+
+        const percent = (x / rect.width) * 100;
+
+        overlay.style.width = percent + "%";
+        slider.style.left = percent + "%";
+        divider.style.left = percent + "%";
+    }
+
+    slider.addEventListener("mousedown", () => dragging = true);
+
+    container.addEventListener("mousedown", (e) => {
+        dragging = true;
+        updateSlider(e.clientX);
+    });
+
+    window.addEventListener("mouseup", () => dragging = false);
+
+    window.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        updateSlider(e.clientX);
+    });
+
+    container.addEventListener("touchstart", (e) => {
+        updateSlider(e.touches[0].clientX);
+    }, { passive: true });
+
+    container.addEventListener("touchmove", (e) => {
+        updateSlider(e.touches[0].clientX);
+    }, { passive: true });
+});
+</script>
+
+</body>
+</html>
