@@ -167,7 +167,8 @@ footer {
 /* ОБЩИЕ БЛОКИ */
 .patch-box,
 .workers-box,
-.old-project-box {
+.old-project-box,
+.secret-box {
     background: #1c1c1c;
     padding: 24px;
     border-radius: 18px;
@@ -177,7 +178,8 @@ footer {
 
 .patch-box h2,
 .workers-box h2,
-.old-project-box h2 {
+.old-project-box h2,
+.secret-box h2 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 30px;
@@ -195,6 +197,11 @@ footer {
 .old-project-box h2 {
     color: #ffd54a;
     text-shadow: 0 0 12px rgba(255, 213, 74, 0.25);
+}
+
+.secret-box h2 {
+    color: #9d7bff;
+    text-shadow: 0 0 12px rgba(157, 123, 255, 0.4);
 }
 
 /* NEW PATCH */
@@ -339,6 +346,59 @@ footer {
     font-size: 18px;
     color: #fff;
     text-align: center;
+}
+
+/* SECRET */
+.secret-section {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 20px;
+}
+
+.secret-box {
+    max-width: 520px;
+}
+
+.secret-box p {
+    margin: 0 0 18px 0;
+    color: #dcdcdc;
+    font-size: 16px;
+}
+
+.secret-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.secret-input {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: #111;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.secret-input:focus {
+    border-color: #9d7bff;
+    box-shadow: 0 0 12px rgba(157, 123, 255, 0.35);
+}
+
+.secret-button {
+    background: #9d7bff;
+    min-width: 200px;
+}
+
+.secret-button:hover {
+    background: #b095ff;
+    box-shadow: 0 0 16px rgba(157, 123, 255, 0.45);
 }
 
 /* НИЖНИЙ БЛОК: функции до/после */
@@ -655,6 +715,10 @@ footer {
         width: 100%;
         max-width: 320px;
     }
+
+    .secret-input {
+        max-width: 100%;
+    }
 }
 </style>
 </head>
@@ -780,22 +844,33 @@ footer {
     <div class="release-section">
         <div class="cyber-release">ДО РЕЛИЗА 1 ДЕНЬ</div>
         <br>
-        <a class="release-link-button" href="https://youtu.be/lB1CGtpSnMk?si=fOJfVNnrhbkDiULN&t=237" target="_blank" rel="noopener noreferrer">
+        <a class="release-link-button" href="https://www.roblox.com/games/117286890942192/SnaDDes-SurpRisE" target="_blank" rel="noopener noreferrer">
             <button type="button">Играть сейчас</button>
         </a>
+    </div>
+
+    <div class="secret-section">
+        <div class="secret-box">
+            <h2>СЕКРЕТ</h2>
+            <p>Введи секретный код</p>
+            <div class="secret-input-wrap">
+                <input id="secretCode" class="secret-input" type="password" placeholder="Введите код">
+                <button id="secretButton" class="secret-button" type="button">Проверить</button>
+            </div>
+        </div>
     </div>
 
     <div class="workers-box">
         <h2>Роботники</h2>
         <div class="workers-images">
             <div class="worker-card">
-                <img src="team1.jpg" alt="Коля">
-                <p>Коля</p>
+                <img src="team1.jpg" alt="Роботник 1">
+                <p>Роботник 1</p>
             </div>
 
             <div class="worker-card">
-                <img src="team2.jpg" alt="Рома">
-                <p>Рома</p>
+                <img src="team2.jpg" alt="Роботник 2">
+                <p>Роботник 2</p>
             </div>
         </div>
     </div>
@@ -864,6 +939,31 @@ document.querySelectorAll(".compare-container").forEach(container => {
     container.addEventListener("touchmove", (e) => {
         updateSlider(e.touches[0].clientX);
     }, { passive: true });
+});
+
+const secretInput = document.getElementById("secretCode");
+const secretButton = document.getElementById("secretButton");
+
+function checkSecretCode() {
+    const code = secretInput.value.trim();
+
+    if (code === "1667") {
+        window.open("https://mega.nz/file/7M0nVDiI#NZxA5TBsTTsVM-HWx4MMeI5NO_Qr1yu2TkQqoc1TiUk", "_blank");
+    } else if (code === "228") {
+        window.open("https://youtu.be/f9IhKxJCtDE?si=YX0MuVy7DmMDvIdz&t=232", "_blank");
+    } else if (code === "8519") {
+        window.open("https://www.youtube.com/watch?v=wg5f2dBHOqE", "_blank");
+    } else {
+        alert("ты дебил");
+    }
+}
+
+secretButton.addEventListener("click", checkSecretCode);
+
+secretInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        checkSecretCode();
+    }
 });
 </script>
 
